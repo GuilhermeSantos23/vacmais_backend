@@ -10,3 +10,53 @@ Exemplo:
 class Usuario(Base):
     __tablename__ = "usuarios"
 """
+
+from datetime import datetime
+from enum import Enum
+
+from sqlalchemy import Boolean, DateTime, String, func
+from sqlalchemy.orm import Mapped, mapped_column, registry
+
+table_registry = registry()
+
+
+class StatusContaEnum(str, Enum):
+    ativo = "ativo"
+    inativo = "inativo"
+    bloqueado = "bloqueado"
+
+
+class User:
+    __tablename__ = "usuarios"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+
+    nome: Mapped[str] = mapped_column(String, nullable=False)
+
+    cpf: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+
+    email: Mapped[str] = mapped_column(String, nullable=False)
+
+    telefone: Mapped[str] = mapped_column(String, nullable=False)
+
+    sexo: Mapped[str] = mapped_column(String, nullable=False)
+
+    cartao_sus: Mapped[str | None] = mapped_column(String, nullable=True)
+
+    senha_hash: Mapped[str] = mapped_column(String, nullable=False)
+
+    data_nascimento: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+
+    ativo: Mapped[bool] = mapped_column(Boolean, default=True)
+
+    status_conta: Mapped[StatusContaEnum] = mapped_column(
+        String, default=StatusContaEnum.ativo
+    )
+
+    criado_em: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now()
+    )
+
+    atualizado_em: Mapped[datetime] = mapped_column(
+        DateTime, server_default=func.now(), onupdate=func.now()
+    )
