@@ -11,3 +11,26 @@ class UserCreate(BaseModel):
     nome: str
     email: str
 """
+
+from pydantic import BaseModel, EmailStr
+
+
+class UserCreate(BaseModel):
+    nome: str
+    cpf: str
+    email: EmailStr
+    senha: str
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    senha: str
+
+
+class UserResponse(BaseModel):
+    id: str
+    nome: str
+    email: EmailStr
+
+    class Config:
+        from_attributes = True

@@ -41,7 +41,7 @@ def test_create_access_token():
 
 
 def test_verify_token():
-    data = {"sub": "123"}
+    data = {"sub": "123", "tipo": "profissional"}
 
     token = create_access_token(data)
 
@@ -49,6 +49,7 @@ def test_verify_token():
 
     assert payload is not None
     assert payload["sub"] == "123"
+    assert payload["tipo"] == "profissional"
 
 
 def test_verify_invalid_token():
