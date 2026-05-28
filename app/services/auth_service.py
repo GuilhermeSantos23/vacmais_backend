@@ -4,12 +4,19 @@ from app.models.administrador_regional import AdministradorRegional
 from app.models.administrador_unidade import AdministradorUnidade
 from app.models.profissional import Profissional
 from app.models.user import User
-from app.utils.security import create_access_token, verify_password
+from app.utils.security import (
+    create_access_token,
+    verify_password,
+)
 
 
 class AuthService:
     @staticmethod
-    def authenticate(db: Session, email: str, senha: str):
+    def authenticate(
+        db: Session,
+        email: str,
+        senha: str,
+    ):
         usuario = db.query(User).filter(User.email == email).first()
 
         tipo = "user"
@@ -44,11 +51,25 @@ class AuthService:
         if not usuario:
             return None
 
-        senha_valida = verify_password(senha, usuario.senha_hash)
+        if not usuario.ativo:
+            return None
+
+        senha_valida = verify_password(
+            senha,
+            usuario.senha_hash,
+        )
 
         if not senha_valida:
             return None
 
-        token = create_access_token({"sub": usuario.id, "tipo": tipo})
+        token = create_access_token(
+            {
+                "sub": str(usuario.id),
+                "tipo": tipo,
+            }
+        )
 
-        return {"access_token": token, "token_type": "bearer"}
+        return {
+            "access_token": token,
+            "token_type": "bearer",
+        }

@@ -12,15 +12,20 @@ class UserCreate(BaseModel):
     email: str
 """
 
+from datetime import datetime
 from pydantic import BaseModel, EmailStr
 
 
 class UserCreate(BaseModel):
+
     nome: str
     cpf: str
     email: EmailStr
+    telefone: str
+    sexo: str
     senha: str
-
+    data_nascimento: datetime
+    cartao_sus: str | None = None
 
 class UserLogin(BaseModel):
     email: EmailStr
