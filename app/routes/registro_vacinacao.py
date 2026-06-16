@@ -6,13 +6,10 @@ from sqlalchemy.orm import Session
 from app.core.auth import (
     get_current_profissional,
 )
-
 from app.database.connection import get_db
-
 from app.services.registro_vacinacao_service import (
     RegistroVacinacaoService,
 )
-
 
 router = APIRouter(
     prefix="/registros-vacinacao",
@@ -27,15 +24,9 @@ router = APIRouter(
 def registrar_vacina(
     data,
     db: Session = Depends(get_db),
-    profissional=Depends(
-        get_current_profissional
-    ),
+    profissional=Depends(get_current_profissional),
 ):
-
-    return (
-        RegistroVacinacaoService
-        .registrar_vacina(
-            db,
-            data,
-        )
+    return RegistroVacinacaoService.registrar_vacina(
+        db,
+        data,
     )

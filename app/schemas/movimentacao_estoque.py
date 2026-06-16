@@ -6,6 +6,7 @@ class MovimentacaoEstoqueCreate(BaseModel):
     unidade_id: int
     tipo_movimento: str
     quantidade: int
+    nota_fiscal_url: str
 
 
 class MovimentacaoEstoqueResponse(BaseModel):

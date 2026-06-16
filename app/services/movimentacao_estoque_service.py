@@ -6,13 +6,11 @@ from app.models.movimentacao_estoque import (
 
 
 class MovimentacaoEstoqueService:
-
     @staticmethod
     def criar_movimentacao(
         db: Session,
         data,
     ):
-
         movimentacao = MovimentacaoEstoque(
             lote_id=data.lote_id,
             unidade_id=data.unidade_id,

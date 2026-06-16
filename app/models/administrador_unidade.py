@@ -24,6 +24,8 @@ class AdministradorUnidade:
 
     cpf: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
+    senha_hash: Mapped[str] = mapped_column(String, nullable=False)
+
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
     telefone: Mapped[str] = mapped_column(String, nullable=False)

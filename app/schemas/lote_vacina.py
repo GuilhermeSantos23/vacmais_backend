@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -5,6 +7,7 @@ class LoteVacinaCreate(BaseModel):
     vacina_id: int
     lote: str
     fabricante: str
+    data_validade: datetime
 
 
 class LoteVacinaResponse(BaseModel):

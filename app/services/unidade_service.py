@@ -1,27 +1,53 @@
 from sqlalchemy.orm import Session
 
 from app.models.unidade import Unidade
+from app.schemas.unidade import (
+    UnidadeCreate,
+    UnidadeUpdate,
+)
 
 
 class UnidadeService:
-
     @staticmethod
-    def create_unidade(
+    def create(
         db: Session,
-        data,
+        data: UnidadeCreate,
     ):
-
-        unidade = Unidade(
-            nome=data.nome,
-            tipo=data.tipo,
-            cidade=data.cidade,
-            estado=data.estado,
-            endereco=data.endereco,
-            telefone=data.telefone,
-            email=data.email,
-        )
+        unidade = Unidade(**data.model_dump())
 
         db.add(unidade)
+
+        db.commit()
+
+        db.refresh(unidade)
+
+        return unidade
+
+    @staticmethod
+    def list_all(
+        db: Session,
+    ):
+        return db.query(Unidade).all()
+
+    @staticmethod
+    def get_by_id(
+        db: Session,
+        unidade_id: int,
+    ):
+        return db.query(Unidade).filter(Unidade.id == unidade_id).first()
+
+    @staticmethod
+    def update(
+        db: Session,
+        unidade: Unidade,
+        data: UnidadeUpdate,
+    ):
+        for campo, valor in data.model_dump(exclude_unset=True).items():
+            setattr(
+                unidade,
+                campo,
+                valor,
+            )
 
         db.commit()
 

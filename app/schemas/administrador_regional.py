@@ -1,19 +1,27 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 
-class AdminRegionalCreate(BaseModel):
+class AdministradorRegionalCreate(BaseModel):
     nome: str
     cpf: str
-    email: EmailStr
+    email: str
     telefone: str
+    registro_regional: str
     regiao_id: int
     senha: str
 
 
-class AdminRegionalResponse(BaseModel):
+class AdministradorRegionalUpdate(BaseModel):
+    telefone: str | None = None
+
+
+class AdministradorRegionalResponse(BaseModel):
     id: str
     nome: str
-    email: EmailStr
+    cpf: str
+    email: str
+    telefone: str
+    registro_regional: str
     regiao_id: int
 
     class Config:

@@ -14,7 +14,7 @@ class Usuario(Base):
 from datetime import datetime
 from enum import Enum
 
-from sqlalchemy import Boolean, DateTime, String, func
+from sqlalchemy import Boolean, DateTime, String, func, text
 from sqlalchemy.orm import Mapped, mapped_column, registry
 
 from app.models.base import Base
@@ -31,7 +31,9 @@ class StatusContaEnum(str, Enum):
 class User(Base):
     __tablename__ = "usuarios"
 
-    id: Mapped[str] = mapped_column(String, primary_key=True)
+    id: Mapped[str] = mapped_column(
+        String, primary_key=True, server_default=text("gen_random_uuid()")
+    )
 
     nome: Mapped[str] = mapped_column(String, nullable=False)
 

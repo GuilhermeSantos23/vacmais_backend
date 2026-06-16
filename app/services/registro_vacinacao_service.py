@@ -3,16 +3,17 @@ from sqlalchemy.orm import Session
 from app.models.registro_vacinacao import (
     RegistroVacinacao,
 )
+from app.schemas.registro_vacinacao import (
+    RegistroVacinacaoCreate,
+)
 
 
 class RegistroVacinacaoService:
-
     @staticmethod
     def registrar_vacina(
         db: Session,
-        data,
+        data: RegistroVacinacaoCreate,
     ):
-
         registro = RegistroVacinacao(
             carteira_id=data.carteira_id,
             vacina_id=data.vacina_id,

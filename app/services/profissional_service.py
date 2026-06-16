@@ -3,20 +3,23 @@ from sqlalchemy.orm import Session
 from app.models.profissional import (
     Profissional,
 )
-
+from app.models.user import (
+    StatusContaEnum,
+)
+from app.schemas.profissional import (
+    ProfissionalCreate,
+)
 from app.utils.security import (
     hash_password,
 )
 
 
 class ProfissionalService:
-
     @staticmethod
-    def create_profissional(
+    def create(
         db: Session,
-        data,
+        data: ProfissionalCreate,
     ):
-
         profissional = Profissional(
             nome=data.nome,
             cpf=data.cpf,
@@ -24,9 +27,7 @@ class ProfissionalService:
             telefone=data.telefone,
             registro_conselho=data.registro_conselho,
             conselho_profissional=data.conselho_profissional,
-            senha_hash=hash_password(
-                data.senha
-            ),
+            senha_hash=hash_password(data.senha),
         )
 
         db.add(profissional)
@@ -38,12 +39,24 @@ class ProfissionalService:
         return profissional
 
     @staticmethod
-    def deactivate_profissional(
+    def deactivate(
         db: Session,
-        profissional,
+        profissional: Profissional,
     ):
+        profissional.status_conta = StatusContaEnum.inativo
 
-        profissional.ativo = False
+        db.commit()
+
+        db.refresh(profissional)
+
+        return profissional
+
+    @staticmethod
+    def reactivate(
+        db: Session,
+        profissional: Profissional,
+    ):
+        profissional.status_conta = StatusContaEnum.ativo
 
         db.commit()
 

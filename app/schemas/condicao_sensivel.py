@@ -2,7 +2,8 @@ from pydantic import BaseModel
 
 
 class CondicaoSensivelCreate(BaseModel):
-    cidadao_id: str
+    usuario_id: str
+    profissional_registro_id: str
     tipo_condicao: str
     descricao: str
 

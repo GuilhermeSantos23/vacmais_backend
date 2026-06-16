@@ -1,19 +1,25 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 
-class AdminUnidadeCreate(BaseModel):
+class AdministradorUnidadeCreate(BaseModel):
     nome: str
     cpf: str
-    email: EmailStr
+    email: str
     telefone: str
     unidade_id: int
     senha: str
 
 
-class AdminUnidadeResponse(BaseModel):
+class AdministradorUnidadeUpdate(BaseModel):
+    telefone: str | None = None
+
+
+class AdministradorUnidadeResponse(BaseModel):
     id: str
     nome: str
-    email: EmailStr
+    cpf: str
+    email: str
+    telefone: str
     unidade_id: int
 
     class Config:

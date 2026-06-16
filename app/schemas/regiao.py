@@ -5,10 +5,15 @@ class RegiaoCreate(BaseModel):
     nome: str
     cidade: str
     estado: str
+    responsavel: str
+    email: str
+    telefone: str
+    status: str
 
 
 class RegiaoResponse(BaseModel):
     id: int
+
     nome: str
     cidade: str
     estado: str

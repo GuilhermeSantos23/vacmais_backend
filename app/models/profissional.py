@@ -26,6 +26,8 @@ class Profissional:
 
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
+    senha_hash: Mapped[str] = mapped_column(String, nullable=False)
+
     telefone: Mapped[str] = mapped_column(String, nullable=False)
 
     registro_conselho: Mapped[str] = mapped_column(String, nullable=False)

@@ -1,41 +1,36 @@
-"""
-Aqui é onde é feita a validação de dados usando Pydantic.
-
-Aqui deve ser desenvolvido:
-- A criação de schemas de entrada (POST, PUT)
-- A criação de schemas de saída (resposta da API)
-- E a validação de dados antes de chegar no banco
-
-Exemplo:
-class UserCreate(BaseModel):
-    nome: str
-    email: str
-"""
-
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from uuid import UUID
+
+from pydantic import BaseModel
 
 
 class UserCreate(BaseModel):
-
     nome: str
     cpf: str
-    email: EmailStr
+    email: str
     telefone: str
     sexo: str
     senha: str
     data_nascimento: datetime
     cartao_sus: str | None = None
 
-class UserLogin(BaseModel):
-    email: EmailStr
-    senha: str
+
+class UserUpdate(BaseModel):
+    nome: str | None = None
+    telefone: str | None = None
+    sexo: str | None = None
+    cartao_sus: str | None = None
 
 
 class UserResponse(BaseModel):
-    id: str
+    id: UUID
     nome: str
-    email: EmailStr
+    cpf: str
+    email: str
+    telefone: str
+    sexo: str
+    cartao_sus: str | None
+    ativo: bool
 
     class Config:
         from_attributes = True

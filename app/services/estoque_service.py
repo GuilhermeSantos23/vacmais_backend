@@ -4,14 +4,12 @@ from app.models.estoque import Estoque
 
 
 class EstoqueService:
-
     @staticmethod
     def atualizar_estoque(
         db: Session,
         estoque: Estoque,
         quantidade: int,
     ):
-
         estoque.quantidade = quantidade
 
         db.commit()

@@ -22,6 +22,8 @@ class AdministradorRegional:
 
     nome: Mapped[str] = mapped_column(String, nullable=False)
 
+    senha_hash: Mapped[str] = mapped_column(String, nullable=False)
+
     cpf: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
