@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.models.unidade import Unidade
 from app.schemas.unidade import (
     UnidadeCreate,
-    UnidadeUpdate,
 )
 
 
@@ -16,9 +15,7 @@ class UnidadeService:
         unidade = Unidade(**data.model_dump())
 
         db.add(unidade)
-
         db.commit()
-
         db.refresh(unidade)
 
         return unidade
@@ -34,15 +31,20 @@ class UnidadeService:
         db: Session,
         unidade_id: int,
     ):
-        return db.query(Unidade).filter(Unidade.id == unidade_id).first()
+        return db.get(
+            Unidade,
+            unidade_id,
+        )
 
     @staticmethod
     def update(
         db: Session,
         unidade: Unidade,
-        data: UnidadeUpdate,
+        data,
     ):
-        for campo, valor in data.model_dump(exclude_unset=True).items():
+        for campo, valor in data.model_dump(
+            exclude_unset=True,
+        ).items():
             setattr(
                 unidade,
                 campo,
@@ -50,7 +52,6 @@ class UnidadeService:
             )
 
         db.commit()
-
         db.refresh(unidade)
 
         return unidade

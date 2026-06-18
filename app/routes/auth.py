@@ -19,11 +19,11 @@ router = APIRouter(
 
 
 @router.post(
-    "/login/user",
+    "/login",
     response_model=TokenResponse,
     status_code=HTTPStatus.OK,
 )
-def login_user(
+def login(
     data: LoginRequest,
     db: Session = Depends(get_db),
 ):
@@ -35,7 +35,7 @@ def login_user(
 
     if not token:
         raise HTTPException(
-            status_code=401,
+            status_code=HTTPStatus.UNAUTHORIZED,
             detail="Email ou senha inválidos",
         )
 

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
@@ -15,12 +17,13 @@ class AdministradorUnidadeUpdate(BaseModel):
 
 
 class AdministradorUnidadeResponse(BaseModel):
-    id: str
+    id: UUID
     nome: str
     cpf: str
     email: str
     telefone: str
     unidade_id: int
+    status_conta: str
 
     class Config:
         from_attributes = True

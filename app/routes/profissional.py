@@ -3,7 +3,10 @@ from http import HTTPStatus
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.core.auth import get_current_profissional
+from app.core.auth import (
+    get_current_admin_unidade,
+    get_current_profissional,
+)
 from app.database.connection import get_db
 from app.schemas.profissional import (
     ProfissionalCreate,
@@ -27,8 +30,9 @@ router = APIRouter(
 def create_profissional(
     data: ProfissionalCreate,
     db: Session = Depends(get_db),
+    admin=Depends(get_current_admin_unidade),
 ):
-    return ProfissionalService.create_profissional(
+    return ProfissionalService.create(
         db,
         data,
     )
@@ -52,7 +56,7 @@ def get_me(
     "/deactivate",
     response_model=ProfissionalResponse,
 )
-def deactivate_profissional(
+def deactivate(
     db: Session = Depends(get_db),
     profissional=Depends(get_current_profissional),
 ):

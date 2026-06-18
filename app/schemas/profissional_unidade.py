@@ -13,7 +13,11 @@ class ProfissionalUnidadeCreate(BaseModel):
 
 class ProfissionalUnidadeResponse(BaseModel):
     id: int
+    profissional_id: str
+    unidade_id: int
     cargo: str
+    data_inicio: datetime
+    status_vinculo: str
 
     class Config:
         from_attributes = True

@@ -8,7 +8,7 @@ from app.schemas.condicao_sensivel import (
 
 class CondicaoSensivelService:
     @staticmethod
-    def create_condicao(
+    def create(
         db: Session,
         data: CondicaoSensivelCreate,
     ):
@@ -26,3 +26,14 @@ class CondicaoSensivelService:
         db.refresh(condicao)
 
         return condicao
+
+    @staticmethod
+    def listar_por_usuario(
+        db: Session,
+        usuario_id: str,
+    ):
+        return (
+            db.query(CondicaoSensivel)
+            .filter(CondicaoSensivel.usuario_id == usuario_id)
+            .all()
+        )

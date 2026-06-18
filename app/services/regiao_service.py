@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.models.regiao import Regiao
 from app.schemas.regiao import (
     RegiaoCreate,
-    RegiaoUpdate,
 )
 
 
@@ -16,9 +15,7 @@ class RegiaoService:
         regiao = Regiao(**data.model_dump())
 
         db.add(regiao)
-
         db.commit()
-
         db.refresh(regiao)
 
         return regiao
@@ -34,15 +31,20 @@ class RegiaoService:
         db: Session,
         regiao_id: int,
     ):
-        return db.query(Regiao).filter(Regiao.id == regiao_id).first()
+        return db.get(
+            Regiao,
+            regiao_id,
+        )
 
     @staticmethod
     def update(
         db: Session,
         regiao: Regiao,
-        data: RegiaoUpdate,
+        data,
     ):
-        for campo, valor in data.model_dump(exclude_unset=True).items():
+        for campo, valor in data.model_dump(
+            exclude_unset=True,
+        ).items():
             setattr(
                 regiao,
                 campo,
@@ -50,7 +52,6 @@ class RegiaoService:
             )
 
         db.commit()
-
         db.refresh(regiao)
 
         return regiao

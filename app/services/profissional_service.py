@@ -39,6 +39,22 @@ class ProfissionalService:
         return profissional
 
     @staticmethod
+    def list_all(
+        db: Session,
+    ):
+        return db.query(Profissional).all()
+
+    @staticmethod
+    def get_by_id(
+        db: Session,
+        profissional_id: str,
+    ):
+        return db.get(
+            Profissional,
+            profissional_id,
+        )
+
+    @staticmethod
     def deactivate(
         db: Session,
         profissional: Profissional,

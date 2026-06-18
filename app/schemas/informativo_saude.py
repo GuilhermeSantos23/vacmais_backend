@@ -5,6 +5,7 @@ class InformativoSaudeCreate(BaseModel):
     titulo: str
     conteudo: str
     tipo: str
+    autor_id: str
 
 
 class InformativoSaudeResponse(BaseModel):

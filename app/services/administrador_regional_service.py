@@ -35,6 +35,12 @@ class AdministradorRegionalService:
         return admin
 
     @staticmethod
+    def list_all(
+        db: Session,
+    ):
+        return db.query(AdministradorRegional).all()
+
+    @staticmethod
     def get_by_id(
         db: Session,
         admin_id: str,

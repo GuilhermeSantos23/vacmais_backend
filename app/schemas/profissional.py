@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
@@ -16,7 +18,7 @@ class ProfissionalUpdate(BaseModel):
 
 
 class ProfissionalResponse(BaseModel):
-    id: str
+    id: UUID
     nome: str
     cpf: str
     email: str
@@ -24,6 +26,7 @@ class ProfissionalResponse(BaseModel):
     registro_conselho: str
     conselho_profissional: str
     validado_profissional: bool
+    status_conta: str
 
     class Config:
         from_attributes = True

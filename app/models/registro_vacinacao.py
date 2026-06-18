@@ -18,6 +18,8 @@ class RegistroVacinacao:
         nullable=False,
     )
 
+    lote_id: Mapped[int] = mapped_column(nullable=False)
+
     data_aplicacao: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,

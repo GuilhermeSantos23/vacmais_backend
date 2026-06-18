@@ -12,8 +12,10 @@ class LoteVacinaCreate(BaseModel):
 
 class LoteVacinaResponse(BaseModel):
     id: int
+    vacina_id: int
     lote: str
     fabricante: str
+    data_validade: datetime
 
     class Config:
         from_attributes = True

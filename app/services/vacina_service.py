@@ -16,9 +16,7 @@ class VacinaService:
         vacina = Vacina(**data.model_dump())
 
         db.add(vacina)
-
         db.commit()
-
         db.refresh(vacina)
 
         return vacina
@@ -34,7 +32,10 @@ class VacinaService:
         db: Session,
         vacina_id: int,
     ):
-        return db.query(Vacina).filter(Vacina.id == vacina_id).first()
+        return db.get(
+            Vacina,
+            vacina_id,
+        )
 
     @staticmethod
     def update(
@@ -42,7 +43,9 @@ class VacinaService:
         vacina: Vacina,
         data: VacinaUpdate,
     ):
-        for campo, valor in data.model_dump(exclude_unset=True).items():
+        for campo, valor in data.model_dump(
+            exclude_unset=True,
+        ).items():
             setattr(
                 vacina,
                 campo,
@@ -50,7 +53,14 @@ class VacinaService:
             )
 
         db.commit()
-
         db.refresh(vacina)
 
         return vacina
+
+    @staticmethod
+    def delete(
+        db: Session,
+        vacina: Vacina,
+    ):
+        db.delete(vacina)
+        db.commit()

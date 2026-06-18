@@ -1,11 +1,17 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
 class CondicaoSensivelCreate(BaseModel):
-    usuario_id: str
-    profissional_registro_id: str
+    usuario_id: UUID
+    profissional_registro_id: UUID
     tipo_condicao: str
     descricao: str
+
+
+class CondicaoSensivelUpdate(BaseModel):
+    descricao: str | None = None
 
 
 class CondicaoSensivelResponse(BaseModel):

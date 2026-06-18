@@ -1,8 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.models.informativo_saude import (
-    InformativoSaude,
-)
+from app.models.informativo_saude import InformativoSaude
 from app.schemas.informativo_saude import (
     InformativoSaudeCreate,
 )
@@ -22,7 +20,9 @@ class InformativoSaudeService:
         )
 
         db.add(informativo)
+
         db.commit()
+
         db.refresh(informativo)
 
         return informativo
@@ -32,3 +32,13 @@ class InformativoSaudeService:
         db: Session,
     ):
         return db.query(InformativoSaude).all()
+
+    @staticmethod
+    def get_by_id(
+        db: Session,
+        informativo_id: int,
+    ):
+        return db.get(
+            InformativoSaude,
+            informativo_id,
+        )

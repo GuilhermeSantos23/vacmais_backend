@@ -24,6 +24,12 @@ class VacinaUpdate(BaseModel):
 class VacinaResponse(BaseModel):
     id: int
     nome: str
+    descricao: str
+    doses_necessarias: int
+    intervalo_dias: int
+    faixa_etaria_min: int
+    faixa_etaria_max: int
+    obrigatoria: bool
 
     class Config:
         from_attributes = True

@@ -23,7 +23,7 @@ router = APIRouter(
     response_model=EstoqueResponse,
     status_code=HTTPStatus.CREATED,
 )
-def create(
+def create_estoque(
     data: EstoqueCreate,
     db: Session = Depends(get_db),
 ):
@@ -33,10 +33,27 @@ def create(
     )
 
 
-@router.get("/")
-def list_all(
+@router.get(
+    "/",
+    response_model=list[EstoqueResponse],
+)
+def list_estoque(
     db: Session = Depends(get_db),
 ):
     return EstoqueService.list_all(
         db,
+    )
+
+
+@router.get(
+    "/{estoque_id}",
+    response_model=EstoqueResponse,
+)
+def get_estoque(
+    estoque_id: int,
+    db: Session = Depends(get_db),
+):
+    return EstoqueService.get_by_id(
+        db,
+        estoque_id,
     )

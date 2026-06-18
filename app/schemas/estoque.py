@@ -7,8 +7,14 @@ class EstoqueCreate(BaseModel):
     quantidade: int
 
 
+class EstoqueUpdate(BaseModel):
+    quantidade: int
+
+
 class EstoqueResponse(BaseModel):
     id: int
+    lote_id: int
+    unidade_id: int
     quantidade: int
 
     class Config:

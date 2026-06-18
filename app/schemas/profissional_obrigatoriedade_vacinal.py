@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class ProfissionalObrigatoriedadeVacinalCreate(BaseModel):
     profissional_id: str
     vacina_id: int
+    obrigatoria: bool = True
 
 
 class ProfissionalObrigatoriedadeVacinalResponse(BaseModel):

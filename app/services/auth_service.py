@@ -1,9 +1,18 @@
 from sqlalchemy.orm import Session
 
-from app.models.administrador_regional import AdministradorRegional
-from app.models.administrador_unidade import AdministradorUnidade
-from app.models.profissional import Profissional
-from app.models.user import User
+from app.models.administrador_regional import (
+    AdministradorRegional,
+)
+from app.models.administrador_unidade import (
+    AdministradorUnidade,
+)
+from app.models.profissional import (
+    Profissional,
+)
+from app.models.user import (
+    StatusContaEnum,
+    User,
+)
 from app.utils.security import (
     create_access_token,
     verify_password,
@@ -51,7 +60,10 @@ class AuthService:
         if not usuario:
             return None
 
-        if not usuario.ativo:
+        if tipo == "user":
+            if not usuario.ativo:
+                return None
+        elif usuario.status_conta != StatusContaEnum.ativo:
             return None
 
         senha_valida = verify_password(

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
@@ -16,13 +18,14 @@ class AdministradorRegionalUpdate(BaseModel):
 
 
 class AdministradorRegionalResponse(BaseModel):
-    id: str
+    id: UUID
     nome: str
     cpf: str
     email: str
     telefone: str
     registro_regional: str
     regiao_id: int
+    status_conta: str
 
     class Config:
         from_attributes = True

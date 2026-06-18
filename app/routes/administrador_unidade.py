@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.auth import (
+    get_current_admin_regional,
     get_current_admin_unidade,
 )
 from app.database.connection import get_db
@@ -26,11 +27,12 @@ router = APIRouter(
     response_model=AdministradorUnidadeResponse,
     status_code=HTTPStatus.CREATED,
 )
-def create_admin(
+def create_admin_unidade(
     data: AdministradorUnidadeCreate,
     db: Session = Depends(get_db),
+    admin=Depends(get_current_admin_regional),
 ):
-    return AdministradorUnidadeService.create(
+    return AdministradorUnidadeService.create_admin_unidade(
         db,
         data,
     )
@@ -58,12 +60,7 @@ def deactivate(
     db: Session = Depends(get_db),
     admin=Depends(get_current_admin_unidade),
 ):
-    db_admin = AdministradorUnidadeService.get_by_id(
+    return AdministradorUnidadeService.deactivate_admin_unidade(
         db,
-        admin["sub"],
-    )
-
-    return AdministradorUnidadeService.deactivate(
-        db,
-        db_admin,
+        admin,
     )
